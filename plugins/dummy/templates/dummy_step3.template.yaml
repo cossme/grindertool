@@ -1,0 +1,8 @@
+- request:
+    body: ${VAR00} - ${location}
+  response:
+    statuscode: 200
+- request:
+    body: toto
+  response:
+    statuscode: 200    

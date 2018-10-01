@@ -1,0 +1,18 @@
+- request:
+    uri: http://${mockHost}:${mockPort}/ProductService
+    headers:
+        SOAPAction: "http://127.0.0.1:8889/ProductService/addProduct"
+        Content-Type: text/xml;charset=UTF-8
+    body: '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:prod="http://127.0.0.1:8889/ProductService">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <prod:AddedProductaddProduct>
+         <name>${productName}</name>
+         <operationid>${operationid}</operationid>
+         <price>${price}</price>
+         <stock>${stock}</stock>
+      </prod:AddedProductaddProduct>
+   </soapenv:Body>
+</soapenv:Envelope>'
+  response:
+    statuscode: 200

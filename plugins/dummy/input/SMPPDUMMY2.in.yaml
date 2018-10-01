@@ -1,0 +1,28 @@
+- version: 1.1    
+- scenario: 
+    name: smppStartExample
+    context:
+      msisdnTest: 123456
+    steps:
+      - name: A dummy step 1
+        protocol: dummy    
+        async:
+          contextKey: msisdn
+          contextValue: ${msisdnTest}
+          callback_protocol: smpp
+          timeout: 30
+      - name: smppMT
+        protocol: dummy 
+        assert:
+#          - contains: ${msisdnTest}
+#            response_key: msisdn
+          # a MT message that contains the word: message
+          - response_key: user_data_binary
+            contains: 6D 65 73 73 61 67 65
+      - name: dummy step 2
+        protocol: dummy
+        input:
+          comment: 'Just to check anyhing is Ok'
+        assert:
+          - response_key: msisdnTest
+            contains: 1234

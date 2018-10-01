@@ -1,0 +1,49 @@
+# just to have compatibility with previous code
+- version: 1.1
+
+- scenario:
+    name: ssh command executor
+    context:
+         host: 'afabri@vgerndvud1497'
+         port: '22'
+         identityPath: 'C:\\Users\\afabri\\Desktop\\TSM4.0\\CERTS\\id_rsa_generic'
+         propertyFile: 'D:\\myProps.properties'
+    steps:
+       - name: showEnv
+         protocol: procexec
+         input:
+            commands:
+                - cmd: 'printenv'              
+                - cmd: 'id'
+                - cmd: 'pwd'
+               
+       # - name: provisiondb
+         # protocol: procexec
+         # input:
+            # commands:
+                # - cmd: 'ls -lrt'
+                # - cmd: 'printenv'
+
+       # - name: stopwlnode
+         # protocol: procexec
+         # input:
+            # commands:
+                # - cmd: 'echo ${PID2KILL}'
+                # - cmd: 'kill -9 echo ${PID2KILL}'
+
+
+       - name: dummy step
+         protocol: dummy
+
+#      - name: saying hello
+#        protocol: hello
+#        input:
+#          name:                     ${context.name}
+#        assert:
+#          - response_key:           respHello
+#            contains:               _1
+#            ignoreCase:             yes
+#          - response_key:           http.status
+#            contains:               200
+#            ignoreCase:             yes
+

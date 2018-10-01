@@ -1,0 +1,4 @@
+- request:
+    body: ${validator} ${name} ${surname} ${comment} <result>tutu</result>
+  response:
+    statuscode: 200

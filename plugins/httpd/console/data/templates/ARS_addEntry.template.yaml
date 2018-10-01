@@ -1,0 +1,10 @@
+- request:
+    port: 16061
+    statuscode: 200
+    content_type: 'Content-Type:text/xml;charset=UTF-8'
+    body: '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://server.itpi.plabs/"><soapenv:Header/><soapenv:Body><ser:trackEntryAddResponse><status>${status}</status></ser:trackEntryAddResponse></soapenv:Body>
+</soapenv:Envelope>'
+    timeout: 30
+
+  response:
+    statuscode: 200

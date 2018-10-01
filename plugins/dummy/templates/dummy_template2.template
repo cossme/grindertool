@@ -1,0 +1,1 @@
+response.body=With ${01.id}, perso = @VALID@

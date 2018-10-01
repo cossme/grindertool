@@ -1,0 +1,35 @@
+- macros:
+  - TestMacro1.initialize(1,10000,${grinder.threads})
+#
+# Step list
+#
+- template: dummy_template
+#  output:
+#    valid: '@VALID@'
+  sleep: 15
+  input:
+    VAR03: ${grinder.threadNumber}
+    VAR04: ${validatorPerso}
+    VAR00: ${grinder.processNumber}
+    VAR02: ${grinder.runNumber}
+    VAR01: TOTOTO
+    VAR06: ${grinder.processNumber.padded}
+    VAR07: ${grinder.threadNumber.padded}
+    VAR05: ${PROCESS}${THREAD}${RUN}
+  protocol: dummy
+- template: dummy_template3
+  sleep: 30
+  input:
+    VAR00: ${PROCESS}${THREAD}${RUN}
+    VAR01: '&TestMacro1.getValue(${THREAD},${RUN})'
+  protocol: dummy
+- template: dummy_template2
+  input:
+    VAR00: ${PROCESS}${THREAD}${RUN}
+  protocol: dummy
+- template: dummy_template2
+  input:
+    VAR00: ${PROCESS}${THREAD}${RUN}
+    VAR02: ${PROCESS}${THREAD}
+    VAR01: TITI
+  protocol: dummy

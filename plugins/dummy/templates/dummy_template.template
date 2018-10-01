@@ -1,0 +1,1 @@
+response.body=PROCESS${01.process};RUN${02.run};THREAD${03.thread};validator=${05.valid};${06.ID};${07.paddedprocess};padded=${08.paddedThread}

@@ -1,0 +1,16 @@
+
+- version: 1.1
+- scenario:
+    name: An example of httpd usage
+    steps:
+     # A/R   
+      - name: WaitForTrackEntryAdd
+        protocol: httpd
+        template: ARS_addEntry
+        input:  
+          status: OK
+        assert:
+          - xpath: //trackEntryAdd/msisdn/text()
+            contains: '^${msisdn}$'
+          - xpath: //trackEntryAdd/expireDays/text()
+            contains: '^0$'

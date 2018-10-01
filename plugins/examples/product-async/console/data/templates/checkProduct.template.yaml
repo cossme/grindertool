@@ -1,0 +1,4 @@
+- request:
+    body: 'for operation ${operationid}, we got product: ${productid}'
+  response:
+    statuscode: 200

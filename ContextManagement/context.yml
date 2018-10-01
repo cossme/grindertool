@@ -1,0 +1,120 @@
+template: Hello, %s!
+
+defaultName: Stranger
+
+
+# Database settings.
+#database:
+
+  # the name of your JDBC driver
+#  driverClass: org.h2.Driver
+
+  # the username
+#  user: sa
+
+  # the password
+#  password: sa
+
+  # the JDBC URL
+#  url: jdbc:h2:./target/example
+
+# use the simple server factory if you only want to run on a single port
+#server:
+# type: simple
+# connector:
+# type: http
+# port: 8080
+
+
+#-----------------------------------------------------
+#   GRAPHITE reporting example 
+#     useRegexpFilters works since dropwizard 8.1
+#-----------------------------------------------------
+#metrics:
+#  reporters:
+#    - type: graphite
+#      host: vgerndpud1427
+#      port: 2003
+#      prefix: CtxMgr
+#      #includes: ['org.cossme.*']
+#      #excludes: (none)
+#      #useRegexFilters: true
+#      durationUnit: milliseconds
+#      rateUnit: seconds
+#      frequency: 10 second
+
+
+
+server:
+
+  requestLog:
+    timeZone: UTC
+    appenders:
+      - type: file
+        currentLogFilename: C:/temp/log/access.log
+        threshold: ALL
+        archive: true
+        archivedLogFilenamePattern: C:/temp/log/access.%d.log.gz
+        archivedFileCount: 14    
+        
+# softNofileLimit: 1000
+# hardNofileLimit: 1000
+  applicationConnectors:
+    - type: http
+      port: 9980
+#    - type: https
+#      port: 8443
+#      keyStorePath: example.keystore
+#      keyStorePassword: example
+#      validateCerts: false
+# this requires the npn-boot library on the JVM's boot classpath
+# - type: spdy3
+# port: 8445
+# keyStorePath: example.keystore
+# keyStorePassword: example
+# validateCerts: false
+  adminConnectors:
+    - type: http
+      port: 9981
+ #   - type: https
+ #     port: 8444
+ #     keyStorePath: example.keystore
+ #     keyStorePassword: example
+ #     validateCerts: false
+
+# Logging settings.
+logging:
+
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: INFO
+
+  # Logger-specific levels.
+  loggers:
+
+    # Sets the level for 'com.example.app' to DEBUG.
+    org.cossme.grindertool: DEBUG
+    org.hibernate.SQL: ALL
+
+  appenders:
+    - type: console
+      logFormat: '%-5level [%date] %logger{0}: %message%n'
+      
+#    - type: file
+#      currentLogFilename: C:/temp/log/ctxMgr.log
+#      threshold: ALL
+#      archive: true
+#      archivedLogFilenamePattern: C:/temp/log/ctxMgr-%d.log
+#      archivedFileCount: 5
+#      #timeZone: UTC
+#      logFormat: '%-5level [%date] %logger{0}: %message%n'
+
+httpClient:
+  timeout: 5000ms
+  connectionTimeout: 5000ms
+  timeToLive: 1h
+  cookiesEnabled: false
+  maxConnections: 1024
+  maxConnectionsPerRoute: 1024
+  keepAlive: 5000ms
+  retries: 2
+  userAgent: JettyAsyncRouter (grindertool)

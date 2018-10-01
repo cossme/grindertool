@@ -1,0 +1,80 @@
+# just to have compatibility with previous code
+- version: 1.1
+#
+# macros calls factory function returning singleton to load test data
+# macros are defined under console/macros
+# They must be declared before scenarios
+#
+- macros:
+    - instance1=TestMacro1.initialize(1,10000,${grinder.threads})
+    - instance2=TestMacro1.initialize(10000,20000,${grinder.threads})
+#
+# a scenario consists of a list of steps
+# a scenario has an execution context (some data ) allowing asynchronous scenario execution
+#
+- scenario: 
+    name: scenario1
+    context:
+      # a key in the context will be msisdn and will be initialized with the grinder.treadNumber, grinder.runNumber
+      msisdn: instance1.getValue(${THREAD}instance2.getValue(${THREAD},${RUN}),${msisdn_prefix})
+      # you can put as many key as you want in the context
+      location: location is ${THREAD},${RUN},${msisdn}
+      msisdn_prefix: 0049
+  # Ordered list of steps (lines)
+    steps:
+      # Step 1 (line 0)
+      # name is optional, test name would be otherwise the string concatenation of protocol+template
+      - name: test_step1
+        protocol: dummy 
+        template: dummy_step1
+        # sleep (in second) after the step execution
+        # could be changed later to be able to sleep before execution 
+        #sleep: 15
+        # input are data transmitted to the template
+        input:
+          validator: ${validatorPerso}${mtas.wss_username}
+          name: Merlin${RUN}
+          surname: enchanteur
+          comment: a comment [msisdn=${msisdn_prefix}${msisdn} - location=${location}] executed by ${PROCESS}${THREAD}${RUN} without 
+        # output are outbound flow evaluation
+        # here valid variable equal the 
+        output:
+          valid:
+            type: regexp
+            match: <result>(.+)</result>
+          #
+          # this strange format comes from previous version and means: 
+          # if you have <valid>xxx</valid> in the answer, put it into @VALID@ memory variable.
+          # otherwise look if you don't have a file pattern.properties with a pattern keyword : valid="a valid regexp pattern with one group"
+          # === This will be changed ===
+          #
+          #valid: '@VALID@'
+          
+        # Ordered assertion checking. 
+        assert:
+          - contains: Merlin\d+
+            ignorecase: false
+          - notcontains: Error
+            ignorecase: true
+            
+      - name: test_step2
+        protocol: dummy
+        template: dummy_step2
+        #sleep: 30
+        input:
+          var1: ${PROCESS}${THREAD}${RUN}
+          var2: instance1.getValue(${THREAD},${RUN})
+      - name: test_step3
+        protocol: dummy
+        template: dummy_step3
+        input:
+          VAR00: valid = "${valid}" - ${PROCESS}${THREAD}${RUN}
+      # step 4 - reuse the same template as previously 
+      - name: test_step4
+        protocol: dummy    
+        template: dummy_step3
+        input:
+          VAR00: ${PROCESS}${THREAD}${RUN}
+          dummy.sleep.min: 200
+          dummy.sleep.max: 300
+

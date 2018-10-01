@@ -1,0 +1,4 @@
+- request:
+    body: ${var1} ${var2}
+  response:
+    statuscode: 200

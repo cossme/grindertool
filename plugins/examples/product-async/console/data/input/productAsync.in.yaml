@@ -1,0 +1,30 @@
+- version: 1.1   
+- macros: 
+  - operationGen=idGenerator.initialize(${grindertool.op.min,101},${grindertool.op.max,99999},${grinder.threads},${grindertool.msisdn.padding,0},${grindertool.msisdn.random,0},${grindertool.msisdn.debug,0})
+- scenario: 
+    name: productAsyncTest
+    context:
+      msisdn: 12345
+      operationid: operationGen.getValue(${THREAD},${RUN})
+    steps:
+      - name: 'step1: addProduct'
+        protocol: http 
+        template: addProduct
+        input:
+          productName: BEAUTIFUL BLUE BICYCLE
+          price: 630
+          stock: 1000
+        async:
+          contextKey: operationid
+          timeout: 30
+          requiredKeys: productid
+      - name: 'step2: getProduct'
+        protocol: http
+        template: getProduct
+        input:
+          idProduct: ${productid}
+      - name: checkAll
+        protocol: dummy
+        template: checkProduct
+        assert:
+          - contains: product:\s+\d+

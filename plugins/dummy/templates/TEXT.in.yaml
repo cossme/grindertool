@@ -1,0 +1,29 @@
+
+- version: 1.1
+- scenario:
+    name: A simple text file
+    context:
+      singer2Name: superman
+    steps:
+      - name: memorization
+        template_type: string
+        template: ' variable ${singer2Name} is there'           
+        input:
+          var1: this is a first message
+          APDU2: AF2345FEDBB0A4
+          var2: the result is OK for this test
+        # Memorization of some outputs
+        output:
+          dummy_var1: var1
+          dummy_var3: ${var1}
+          dummy_var2:
+            from: APDU2
+            regexp: AF(.*)A4
+      # A step for checking
+      - name: checking memorized
+        assert:
+          - response_key: dummy_var1
+            regexp: 'a ([a-z]+) message'
+            contains: first
+          - response_key: dummy_var2
+            equals: 2345FEDBB0

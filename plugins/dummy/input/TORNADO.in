@@ -1,0 +1,2 @@
+#!directoryFilesIterator.initialize(C:/tmp/file,${grinder.threads})
+http.http_tornado||&directoryFilesIterator.getValue(#THREAD,#RUN)

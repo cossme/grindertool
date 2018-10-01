@@ -1,0 +1,13 @@
+- version: 1.1    
+- scenario: 
+    name: smppStartExample
+    context:
+      location: location is ${THREAD},${RUN},${msisdn}
+      msisdn_prefix: 0049
+    steps:
+      - name: test_step1
+        protocol: dummy 
+        template: dummy_step1
+        input:
+          validator: ${validatorPerso}
+          comment: ${userData}

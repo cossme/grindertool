@@ -1,0 +1,26 @@
+# just to have compatibility with previous code
+- version: 1.1
+
+- macros:
+    - msisdn=GetMSISDNPadded.initialize(10000,20000,${grinder.threads},1,8)
+    
+- scenario: 
+    name: testSMPP
+    context:
+       msisdn: msisdn.getValue(${THREAD},${RUN})
+    steps:
+      - name: send_mo1
+        protocol: smpp 
+        input:
+          destinationAddress: 123456789
+          originatingAddress: ${msisdn}
+          userData: Hello ${msisdn} your phone is ready !
+        async:
+          contextKey: msisdn
+          timeout: 300
+      - name: send_mo2
+        protocol: smpp 
+        input:
+          destinationAddress: 123456789
+          originatingAddress: ${msisdn}
+          userData: To configure your account on ${msisdn}, clic here

@@ -1,0 +1,6 @@
+- request:
+    body: Got ${msisdn} with user data ${userData} 
+  response:
+    statuscode: 200
+
+

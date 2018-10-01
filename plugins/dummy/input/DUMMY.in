@@ -1,0 +1,5 @@
+#!TestMacro1.initialize(1,1000,${grinder.threads})
+dummy.dummy_template||${grinder.processNumber}|TOTOTO|${grinder.runNumber}|${grinder.threadNumber}|${validatorPerso}|${PROCESS}${THREAD}${RUN}|${grinder.processNumber.padded}|${grinder.threadNumber.padded};valid|@VALID@
+dummy.dummy_template3||${PROCESS}${THREAD}${RUN}|&TestMacro1.getValue(${THREAD},${RUN})
+dummy.dummy_template2||${PROCESS}${THREAD}${RUN}
+dummy.dummy_template2||${PROCESS}${THREAD}${RUN}|TITI|${PROCESS}${THREAD}

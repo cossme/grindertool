@@ -1,0 +1,2 @@
+request0.uri=/path/${1.pathimage}
+response0.statuscode=200

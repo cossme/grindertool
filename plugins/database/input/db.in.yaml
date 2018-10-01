@@ -1,0 +1,21 @@
+# just to have compatibility with previous code
+- version: 1.1
+
+- macros:
+    - dataGen=TestMacro1.initialize(1,10000,${grinder.threads})
+
+- scenario: 
+    name: scenarioDB1
+    context:
+      value1: dataGen.getValue(${THREAD},${RUN})
+      value2: dataGen.getValue(${THREAD},${RUN})
+    steps:
+      - name: step1
+        protocol: database 
+        template: script1.sql
+        template_type: text
+        input:
+          value1: ${value1}
+          value2: ${value2}
+          # No , as separator 
+          value3: created by (thread=${THREAD} run=${RUN})
