@@ -1,0 +1,6 @@
+//allprojects {
+//  apply plugin: 'java'
+//}
+
+project(':ContextManagement') { }
+project(':plugins:ssh') { }

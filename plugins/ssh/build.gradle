@@ -1,0 +1,13 @@
+apply plugin: 'java' 
+
+version = "plugin:jsch:1.0.SNAPSHOT"
+
+repositories {
+  mavenCentral()
+  /* jcenter() */
+}
+
+dependencies {
+   compile 'com.jcraft:jsch:0.1.54'
+   compile 'org.apache.commons:commons-lang3:3.8'
+}

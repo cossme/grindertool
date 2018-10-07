@@ -1,0 +1,40 @@
+//apply plugin: 'java' 
+
+//apply plugin: 'application' 
+plugins {
+  id "com.github.johnrengelman.shadow" version "4.0.1"
+  id 'java'
+}
+
+version = "grindertool:contextmgt:0.5.SNAPSHOT"
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'org.cossme.grindertool.contextmgt.ContextManagementApplication'
+        attributes('Implementation-Title': 'grindertool.contextManager',
+                   'Implementation-Version': "$version")
+    }
+}
+
+/*shadowJar {
+   baseName = 'grindertool'
+   classifier = 'contextmgt'
+   version = '0.5.SNAPSHOT'
+}*/
+
+repositories {
+  mavenCentral()
+  /* jcenter() */
+}
+
+/* dependencies */
+def dropwizardVersion = "0.8.1"
+dependencies {
+   compile "io.dropwizard:dropwizard-jersey:$dropwizardVersion"
+   compile "io.dropwizard:dropwizard-client:$dropwizardVersion"
+   compile "io.dropwizard:dropwizard-core:$dropwizardVersion"
+   //compile 'io.dropwizard:dropwizard-metrics-graphite:$dropwizardVersion'
+   compile 'junit:junit:4.1'
+}
+
+
